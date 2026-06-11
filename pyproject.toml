@@ -1,5 +1,5 @@
 [project]
-name = "epub-to-typst"
+name = "epub2typst"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
