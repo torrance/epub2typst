@@ -72,6 +72,8 @@ class Translator:
                 .replace("[", "\\[")
                 .replace("]", "\\]")
                 .replace("@", "\\@")
+                .replace("<", "\\<")
+                .replace(">", "\\>")
             )
         elif type(node) is element.Comment:
             # Ignore comments
