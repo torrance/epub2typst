@@ -1,4 +1,5 @@
 import copy
+from pathlib import Path
 from zipfile import ZipFile
 
 from bs4 import BeautifulSoup, NavigableString, element
@@ -15,11 +16,14 @@ class Translator:
         ROOTFILE = container.find("rootfiles").find("rootfile")["full-path"]
         print(f"ROOTFILE: {ROOTFILE}")
 
+        # All paths from the OPF file are with respect to the root file
+        ROOTPATH = Path(ROOTFILE).parent
+
         opf = BeautifulSoup(z.open(ROOTFILE), "lxml-xml")
         chapters = []
         for itemref in opf.find("spine").find_all("itemref"):
-            chapter = opf.find("manifest").find("item", id=itemref["idref"])["href"]
-            chapters.append(chapter)
+            chapter = ROOTPATH / opf.find("manifest").find("item", id=itemref["idref"])["href"]
+            chapters.append(str(chapter))
 
         print("CHAPTERS:")
         for i, chapter in enumerate(chapters):
