@@ -48,8 +48,9 @@ class Translator:
         return s
 
     def __getitem__(self, idx):
-        t = copy.copy(self)
-        t.chapters = copy.deepcopy(self.chapters[idx])
+        t = copy.deepcopy(self)
+        chapters = copy.deepcopy(self.chapters[idx])
+        t.chapters = chapters if isinstance(chapters, list) else [chapters]
         return t
 
     def add_rule(self, tag, before="", after="", fn=lambda x: x):
